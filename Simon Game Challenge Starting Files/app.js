@@ -10,14 +10,18 @@ let started = false;
 $(document).keypress(function () {
 
     if (!started) {
-        nextSequence();
-        $("#level-title").text("level " + level);
+        setTimeout(() => {
+            nextSequence();
+            $("#level-title").text("level " + level);
+        }, 1000);
+        // nextSequence();
+        
         started = true;
     }
 
 })
 
-$(document).click(function () {
+$(".btn").click(function () {
 
     let userChosenColor = $(this).attr("id");
     userPattern.push(userChosenColor);
@@ -27,19 +31,59 @@ $(document).click(function () {
 
     setTimeout(() => {
         $("#" + userChosenColor).removeClass("pressed");
-    }, 500);
+    }, 100);
+
+    checkAnswer(userPattern.length - 1);
+
+    console.log("user ", userPattern);
+    console.log("game", gamePattern);
 
 })
 
+function checkAnswer(currentLevel) {
+    if (userPattern[currentLevel] === gamePattern[currentLevel]) {
+        if (userPattern.length < gamePattern.length) {
+            return;
+        } else if (userPattern.length === gamePattern.length) {
+            setTimeout(() => {
+                nextSequence();
+                $("#level-title").text("level " + level);
+            }, 500);
+        }
+    } else {
+        playSound("wrong");
+        $("body").addClass("game-over");
+        $("#level-title").text("Game over, press any key to start again.")
+
+        setTimeout(() => {
+            $("body").removeClass("game-over");
+        }, 200);
+        startOver();
+    }
+}
+
+function startOver() {
+    level = 0;
+    started = false;
+    gamePattern.length = 0;
+}
+
 function nextSequence() {
 
+    userPattern.length = 0;
     level++;
 
     let randomNumber = Math.floor(Math.random() * 4);
     let randomColor = btnColors[randomNumber];
 
     gamePattern.push(randomColor);
-    $("#" + randomColor).fadeIn(100).fadeOut(100).fadeIn(100);
+    gamePattern.forEach((c, i) => {
+        setTimeout(() => {
+            $("#" + c).fadeIn(100).fadeOut(100).fadeIn(100);
+        }, (i + 1) * 200);
+        
+    })
+    
 
     playSound(randomColor);
 
