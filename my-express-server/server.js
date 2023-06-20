@@ -10,7 +10,7 @@ app.get("/contact", (req, res) => {
     res.send("Contact me at example@gmail.com");
 })
 
-let bio = "My name is Jude Andrew Reyes. A Full-Stack Web Developer that has knowledge in multiple languages from front-end, back-end, and database design.";
+let bio = "My name is Jude Andrew Reyes. A Full-Stack Web Developer that has knowledge in multiple languages f rom front-end, back-end, and database design.";
 
 app.get("/about", (req, res) => {
     res.send(bio);
