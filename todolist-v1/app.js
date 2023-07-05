@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
         kindOfDay: day
     });
 
-})
+});
 
 
 
