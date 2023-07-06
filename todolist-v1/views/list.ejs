@@ -1,26 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>To Do List</title>
-    </head>
-    <body>
-        
-        <h1>Today is <%= kindOfDay %> </h1>
-<!-- List of todos -->
-        <ul>
-            <li>Buy Food</li>
-            <li>Cook Food</li>
-            <li>Eat Food</li>
-        </ul>
-<!-- form for adding item in todo list -->
-        <form action="/" method="post">
+<%- include("header"); -%>
 
-            <input type="text" name="new_item" placeholder="Add new item.">
-            <input type="submit" value="+">
+        <div class="box" id="heading">
+            <h1>Today is <%= listTitle %> </h1>
+        </div>
+<!-- List of to do's -->
+        <div class="box">
 
-        </form>
+            <% for (let i=0; i<newListItems.length; i++) { %>
+                <div class="item">
+                    <input type="checkbox">
+                    <p><%= newListItems[i] %></p>
+                </div>
+            <% } %>
 
-    </body>
-</html> 
+            <form class="item" action="/" method="post">
+                <input type="text" name="newItem" placeholder="Add new item" autocomplete="off">
+                <button type="submit" name="list" value=<%= listTitle %>>+</button>
+            </form>
+        </div>
+<!-- form for adding item in to do list -->
+<%- include("footer"); -%>
