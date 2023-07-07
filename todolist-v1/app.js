@@ -1,29 +1,22 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-// const ejs = require("ejs");
+const date = require(__dirname + "/date.js");
 
 const app = express();
 const port = 3000;
 
 let items = ["Buy food", "Cook food", "Eat food"];
 let workItems =[];
-
+// use to access view folder
 app.set('view engine', 'ejs');
-
+// use to access requests
 app.use(bodyParser.urlencoded({ extended: true }));
 // use to load the public folder
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
 
-    let today = new Date();
-    let options = {
-        weekday: "long",
-        day: "numeric",
-        month: "long"
-    };
-
-    let day = today.toLocaleDateString("en-PH", options)
+    let day = date.getDate();
 
     res.render("list", {
         listTitle: day,
@@ -35,7 +28,7 @@ app.get("/", (req, res) => {
 app.post("/", (req, res) => {
 
     let item = req.body.newItem;
-    console.log(req.body);
+    // console.log(req.body);
 
     if (req.body.list === "Work") {
         workItems.push(item);
