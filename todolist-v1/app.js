@@ -5,8 +5,8 @@ const date = require(__dirname + "/date.js");
 const app = express();
 const port = 3000;
 
-let items = ["Buy food", "Cook food", "Eat food"];
-let workItems =[];
+const items = ["Buy food", "Cook food", "Eat food"];
+const workItems =[];
 // use to access view folder
 app.set('view engine', 'ejs');
 // use to access requests
@@ -16,7 +16,7 @@ app.use(express.static("public"));
 
 app.get("/", (req, res) => {
 
-    let day = date.getDate();
+    const day = date.getDate();
 
     res.render("list", {
         listTitle: day,
@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
 
-    let item = req.body.newItem;
+    const item = req.body.newItem;
     // console.log(req.body);
 
     if (req.body.list === "Work") {
@@ -48,7 +48,7 @@ app.get("/work", (req, res) => {
 });
 
 app.post("/work", (req, res) => {
-    let item = req.body.newItem;
+    const item = req.body.newItem;
 
     workItems.push(item);
 
