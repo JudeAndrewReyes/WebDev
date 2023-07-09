@@ -3,4 +3,14 @@
             <h1>Home</h1>
             <p><%= homeStartingContent %></p>
 
+            <% for (let i=0; i<posts.length; i++) { %>
+                <h2><%= posts[i].id %> <%= posts[i].title %></h2>
+                <p>
+                    <%= posts[i].content.substring(0, 100) + " ..." %>
+                    <a href="/posts/<%= posts[i].title.replace(/\s+/g, '-') %>">
+                        Read more
+                    </a>
+                </p>
+            <% } %>
+            
 <%- include("partials/footer"); %>
